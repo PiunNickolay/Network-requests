@@ -47,11 +47,11 @@ class PostViewHolder(
             onInteractionListener.onPost(post)
         }
         author.text = post.author
-        published.text = post.published
+//        published.text = post.published
         content.text = post.content
         like.apply {
             isChecked = post.likedByMe
-            text = Counts.countFormat(post.likeCount)
+            text = post.likes.toString()
         }
         share.text = Counts.countFormat(post.shareCount)
         view.text = Counts.countFormat(post.viewCount)
@@ -88,7 +88,7 @@ class PostViewHolder(
         if (!post.video.isNullOrBlank()) {
             binding.videoContainer.visibility = View.VISIBLE
             binding.playButton.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, post.video.toUri())
+                val intent = Intent(Intent.ACTION_VIEW, post.video!!.toUri())
                 it.context.startActivity(intent)
             }
             playButton.isClickable = true
